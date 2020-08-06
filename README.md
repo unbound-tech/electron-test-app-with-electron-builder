@@ -2,6 +2,13 @@
 
 This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
 
+## Prerequisites
+
+Before integrating with Electron, you must have the following prerequisites:
+* UKC containing a partition with a certificate and signing key that will be used for signing.
+* Copy UKC certificates to the Windows keystore, as explained [here](https://www.unboundtech.com/docs/UKC/UKC_Code_Signing_IG/HTML/Content/Products/UKC-EKM/UKC_Code_Signing_IG/WindowsPE/Signtool/Manage_Certificates.htm#h2_2).
+* Node.js v12.16.3 (LTS)
+
 ## To Use
 
 To test code signing using a UKC key in Electron builder, use the following instructions:
