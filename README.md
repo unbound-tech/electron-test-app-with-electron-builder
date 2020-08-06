@@ -1,32 +1,36 @@
-# electron bootstrap with electron builder
-
-**Clone and run for a quick way to see Electron in action along with build setup**
+# Electron builder code signing with UKC
 
 This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
 
 ## To Use
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To test code signing using a UKC key in Electron builder, use the following instructions:
 
-```bash
-# Clone this repository
-git clone https://github.com/siwalikm/electron-test-app-with-electron-builder
-# Go into the repository
-cd electron-test-app-with-electron-builder
-# Install dependencies
-npm install
-# Run the app
-npm start
-# Build app into dist
-npm run dist
+1. Find the details of the code signing certificate, including email address, location, state and country. You can locate it in UKC using the `ucl list` and `ucl show -u <UID>` commands.
+2. Download the sample project: https://github.com/unbound-tech/electron-test-app-with-electron-builder
+3. In the project, edit the *package.json* build file. 
+    a. Find the win section. 
+    b. Add the field *certificateSubjectName* with values that match the installed certificate. For example:
+    ```
+    "win": { 
+        "target": "squirrel", 
+        "icon": "build/icon.ico", 
+        "certificateSubjectName": "E=<Email address>, CN=<Common name>, OU=<Organizational unit>, O=<Organization Name>, L=<Location>, S=<State>, C=<Country>"
+     }
+     ```
+     
+     Refer to the [Electron-builder documentation](electronjs.org/docs) for more information about this field.
+4. Run the following command to install all dependencies.
+
+    `npm i`
+5. Run the sample signing app.
+
+    `npm run dist`
+
+## Verification
+
+Verify signing by checking the log file dy-ekm-crypto.log on the UKC Entry Point. You should see an entry like:
 ```
-
-
-## Resources for Learning Electron
-
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [electronjs.org/community#boilerplates](https://electronjs.org/community#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
+06-08-2020 08:38:03.137 partition=codesigning                          job=88ef478b61b75407 ktype=RSA       key=abc9bb4073ab846d operation=SIGN        rv=0             alg=PKCS1
+```
+Operations of type *SIGN* designate that signing occurred in the partition specified by *partition*.
