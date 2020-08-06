@@ -48,13 +48,13 @@
   ],
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.0",
-    "electron-builder": "^20.15.1"
+    "electron": "^2.0.18",
+    "electron-builder": "^20.38.0"
   },
   "dependencies": {
-    "ajv": "^6.5.0",
-    "express": "^4.16.3",
-    "node": "^8.11.2",
+    "ajv": "^6.12.2",
+    "electron-builder-squirrel-windows": "^22.7.0",
+    "express": "^4.17.1",
     "xmlhttprequest": "^1.8.0"
   }
 }
